@@ -5,7 +5,13 @@ module.exports.getTotalCost = items => {
   for (const name in items) {
     const quantity = items[name];
     const info = PRODUCTS[name];
-    total += info.price * quantity;
+    switch (name) {
+      case 'apple':
+        total += info.price * (quantity - Math.floor(quantity / 2));
+        break;
+      case 'orange':
+        total += info.price * (quantity >= 3 ? (quantity % 3) + Math.floor(quantity / 3) * 2 : quantity);
+    }
   }
   return total;
 };
